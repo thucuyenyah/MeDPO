@@ -49,14 +49,14 @@ export WANDB_API_KEY=8f17474bb5e6fbb39a20e2e78dac373f97f339e6
 
 # SLURM copies scripts to its spool dir, so BASH_SOURCE[0] points there, not here.
 # SLURM_SUBMIT_DIR is set to the directory where sbatch was called (always PROJECT_ROOT).
-if [ -n "${SLURM_SUBMIT_DIR:-}" ]; then
-    PROJECT_ROOT="${SLURM_SUBMIT_DIR}"
-else
-    PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-fi
-cd "$PROJECT_ROOT"
+# if [ -n "${SLURM_SUBMIT_DIR:-}" ]; then
+#     PROJECT_ROOT="${SLURM_SUBMIT_DIR}"
+# else
+#     PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# fi
+# cd "$PROJECT_ROOT"
 
-mkdir -p "$PROJECT_ROOT/runs" "$PROJECT_ROOT/logs" "$PROJECT_ROOT/results"
+# mkdir -p "$PROJECT_ROOT/runs" "$PROJECT_ROOT/logs" "$PROJECT_ROOT/results"
 
 # ---------------------------------------------------------------------------
 # Argument parsing
@@ -327,15 +327,15 @@ fi
 # ---------------------------------------------------------------------------
 # Validate model config exists
 # ---------------------------------------------------------------------------
-if [ "$is_betadpo" = "1" ]; then
-    TRAIN_DIR="$PROJECT_ROOT/betaDPO"
-else
-    TRAIN_DIR="$PROJECT_ROOT"
-fi
-if [ ! -f "$TRAIN_DIR/config/model/${model_name}.yaml" ]; then
-    echo "❌ Model config not found: $TRAIN_DIR/config/model/${model_name}.yaml"
-    exit 1
-fi
+# if [ "$is_betadpo" = "1" ]; then
+#     TRAIN_DIR="$PROJECT_ROOT/betaDPO"
+# else
+#     TRAIN_DIR="$PROJECT_ROOT"
+# fi
+# if [ ! -f "$TRAIN_DIR/config/model/${model_name}.yaml" ]; then
+#     echo "❌ Model config not found: $TRAIN_DIR/config/model/${model_name}.yaml"
+#     exit 1
+# fi
 
 # ---------------------------------------------------------------------------
 # Environment
@@ -344,7 +344,7 @@ echo "pwd: $(pwd)"
 echo "whoami: $(whoami)"
 echo "hostname: $(hostname)"
 
-source "$PROJECT_ROOT/slurm_env.sh"
+
 python -c "import hydra, tensor_parallel; print('deps OK')"
 
 export WANDB_API_KEY="${WANDB_API_KEY:-}"
@@ -421,7 +421,7 @@ fi
 # ---------------------------------------------------------------------------
 if [ "$run_sft" = "1" ]; then
     echo "--- SFT ---"
-    cd "$TRAIN_DIR"
+    # cd "$TRAIN_DIR"
     python -u train.py \
         model="$model_name" \
         datasets=["$dataset"] \
@@ -463,7 +463,7 @@ echo "SFT checkpoint: $ckpt_path"
 # ---------------------------------------------------------------------------
 if [ "$is_betadpo" = "1" ]; then
     echo "--- betaDPO ---"
-    cd "$PROJECT_ROOT/betaDPO"
+    # cd "$PROJECT_ROOT/betaDPO"
     python -u train.py \
         model="$model_name" \
         datasets=["$dataset"] \
@@ -491,7 +491,7 @@ fi
 # All other methods – run from project root
 # ---------------------------------------------------------------------------
 echo "--- $method ---"
-cd "$PROJECT_ROOT"
+# cd "$PROJECT_ROOT"
 python -u train.py \
     model="$model_name" \
     datasets=["$dataset"] \

@@ -1,5 +1,6 @@
 #!/bin/bash
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
+set -e
 
 # GPU ưu tiên: 7 > 5
 # GPU 7: free hoàn toàn
