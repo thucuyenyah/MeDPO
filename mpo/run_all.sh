@@ -256,57 +256,61 @@ case "$method" in
         # Experiment 1 – Artifact-projection ablation.
         # Uses raw cosine similarity on unprojected (mean-centred) mediator
         # representations as the contrast score φ. Trains with DPO+φ_noproj loss
-        # so we can compare final-checkpoint metrics vs MPO-EMA and plain DPO.
+        # so we can compare final-checkpoint metrics vs MPO-Safe and plain DPO.
         # The companion full-FABE φ is also computed and logged each step
         # (keys: noproj_phi_mean, noproj_fabe_ref_mean, noproj_vs_fabe_corr).
+        # Built on MPO-Safe (v32): includes fabe_correction_clip for safe clipping.
         variant=38
         variant_name="MPO-NoProj"
         fd_dpo_mode="fd_dpo.enabled=true"
         fd_dpo_layer="fd_dpo.layer=${fd_dpo_default_layer}"
         fd_dpo_alpha="fd_dpo.alpha=${fd_dpo_alpha_value}"
-        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=noproj fd_dpo.fabe_variant_id=38"
+        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=noproj fd_dpo.fabe_variant_id=38 fd_dpo.fabe_correction_clip=${fd_dpo_fabe_clip_value}"
         ;;
     MPO-LengthDiag)
         # Experiment 2 – Length-bias diagnostic.
-        # Trains identically to MPO-EMA (full FABE with projection) but logs rich
-        # length-bias statistics every step:
+        # Trains identically to MPO-Safe (full FABE with projection and safe clipping)
+        # but logs rich length-bias statistics every step:
         #   length_diag_phi_fabe_mean, length_diag_phi_noproj_mean,
         #   length_diag_corr_phi_fabe_len, length_diag_corr_phi_noproj_len,
         #   length_diag_corr_dpo_margin_len, length_diag_fabe_len_bias_reduction
         # These scalars let you verify that projection substantially reduces
         # length correlation while preserving useful preference information.
+        # Built on MPO-Safe (v32): includes fabe_correction_clip for safe clipping.
         variant=39
         variant_name="MPO-LengthDiag"
         fd_dpo_mode="fd_dpo.enabled=true"
         fd_dpo_layer="fd_dpo.layer=${fd_dpo_default_layer}"
         fd_dpo_alpha="fd_dpo.alpha=${fd_dpo_alpha_value}"
-        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=length_diag fd_dpo.fabe_variant_id=39 fd_dpo.fabe_ema_momentum=${fd_dpo_fabe_ema_momentum_value}"
+        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=length_diag fd_dpo.fabe_variant_id=39 fd_dpo.fabe_correction_clip=${fd_dpo_fabe_clip_value}"
         ;;
     MPO-LengthOnly)
         # Experiment 3 – Artifact-component ablation: length-only artifact direction.
         # Uses artifact_score = standardize(log(length)) only — no norm component.
-        # Trains with DPO+φ_length_only loss. Compare against MPO-EMA (full FABE)
+        # Trains with DPO+φ_length_only loss. Compare against MPO-Safe (full FABE)
         # and MPO-NormOnly to isolate which component drives bias reduction.
         # Logged keys: length_only_phi_mean, length_only_fabe_ref_mean, length_only_vs_fabe_corr.
+        # Built on MPO-Safe (v32): includes fabe_correction_clip for safe clipping.
         variant=40
         variant_name="MPO-LengthOnly"
         fd_dpo_mode="fd_dpo.enabled=true"
         fd_dpo_layer="fd_dpo.layer=${fd_dpo_default_layer}"
         fd_dpo_alpha="fd_dpo.alpha=${fd_dpo_alpha_value}"
-        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=length_only fd_dpo.fabe_variant_id=40"
+        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=length_only fd_dpo.fabe_variant_id=40 fd_dpo.fabe_correction_clip=${fd_dpo_fabe_clip_value}"
         ;;
     MPO-NormOnly)
         # Experiment 4 – Artifact-component ablation: norm-only artifact direction.
         # Uses artifact_score = standardize(norm) only — no log-length component.
-        # Trains with DPO+φ_norm_only loss. Compare against MPO-EMA (full FABE)
+        # Trains with DPO+φ_norm_only loss. Compare against MPO-Safe (full FABE)
         # and MPO-LengthOnly to isolate which component drives bias reduction.
         # Logged keys: norm_only_phi_mean, norm_only_fabe_ref_mean, norm_only_vs_fabe_corr.
+        # Built on MPO-Safe (v32): includes fabe_correction_clip for safe clipping.
         variant=41
         variant_name="MPO-NormOnly"
         fd_dpo_mode="fd_dpo.enabled=true"
         fd_dpo_layer="fd_dpo.layer=${fd_dpo_default_layer}"
         fd_dpo_alpha="fd_dpo.alpha=${fd_dpo_alpha_value}"
-        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=norm_only fd_dpo.fabe_variant_id=41"
+        fd_dpo_runtime_flags="fd_dpo.mode=hidden_state fd_dpo.pool=response_mean fd_dpo.contrast=fabe fd_dpo.detach_mediator=true fd_dpo.fabe_variant=norm_only fd_dpo.fabe_variant_id=41 fd_dpo.fabe_correction_clip=${fd_dpo_fabe_clip_value}"
         ;;
     *)
         echo "❌ Unknown method: $method"

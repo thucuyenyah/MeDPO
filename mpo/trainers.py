@@ -1096,7 +1096,7 @@ class BasicTrainer(object):
 
             # --- Experiment 2: Length-Bias Diagnostic ---
             # During training, use the full FABE score as the contrast signal
-            # (so the model trains identically to MPO-EMA/base) but also compute
+            # (so the model trains identically to MPO-Safe/base) but also compute
             # and cache rich length-bias statistics that are then emitted as
             # additional metrics in get_batch_metrics.
             if fabe_variant == 'length_diag':

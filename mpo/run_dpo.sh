@@ -18,16 +18,7 @@ CUDA_VISIBLE_DEVICES=7 bash run_all.sh 3 5 MPO-NoProj 0 &
 CUDA_VISIBLE_DEVICES=5 bash run_all.sh 3 6 MPO-NoProj 0 &
 wait
 
-echo "=== MPO-NoProj model=4 (llama7b) ==="
-CUDA_VISIBLE_DEVICES=7 bash run_all.sh 4 1 MPO-NoProj 0 &
-CUDA_VISIBLE_DEVICES=5 bash run_all.sh 4 2 MPO-NoProj 0 &
-wait
-CUDA_VISIBLE_DEVICES=7 bash run_all.sh 4 3 MPO-NoProj 0 &
-CUDA_VISIBLE_DEVICES=5 bash run_all.sh 4 4 MPO-NoProj 0 &
-wait
-CUDA_VISIBLE_DEVICES=7 bash run_all.sh 4 5 MPO-NoProj 0 &
-CUDA_VISIBLE_DEVICES=5 bash run_all.sh 4 6 MPO-NoProj 0 &
-wait
+
 
 echo "=== MPO-NoProj model=1 (qwen05b) ==="
 CUDA_VISIBLE_DEVICES=7 bash run_all.sh 1 1 MPO-NoProj 0 &
