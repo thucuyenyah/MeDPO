@@ -1,18 +1,14 @@
 #!/bin/bash
-#SBATCH --partition=gpu-large
-#SBATCH --cpus-per-gpu=8
-#SBATCH --time=120:00:00
-#SBATCH --mem=128G
-# GPU selection policy:
-# Priority order: H200 > H100 > A100
-# Use A100 only if no H200/H100 GPUs are available
-#SBATCH --qos=priority
-#SBATCH --output=runs/slurm-%x-%j.out
-#SBATCH --error=runs/slurm-%x-%j.err
-#SBATCH --mail-type=END,TIME_LIMIT
-#SBATCH --mail-user=thin.nguyen@deakin.edu.au
+set -e
 
-set -euo pipefail
+# ===============================
+# Environment
+# ===============================
+source /raid/nhdang01/miniconda3/etc/profile.d/conda.sh
+conda activate dpo
+
+export PYTHONNOUSERSITE=1
+export WANDB_API_KEY=8f17474bb5e6fbb39a20e2e78dac373f97f339e6
 
 # ---------------------------------------------------------------------------
 # MPO – run_all.sh
@@ -356,13 +352,13 @@ export WANDB_API_KEY="${WANDB_API_KEY:-}"
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
-log_dir="$PROJECT_ROOT/logs"
+log_dir="logs"
 mkdir -p "$log_dir"
-job_id="${SLURM_JOB_ID:-local$$}"
+job_id=$(date +%Y%m%d_%H%M%S)
+
 log_file="${log_dir}/${model_name}_${dataset}_${variant_name}_${job_id}.out"
 err_file="${log_dir}/${model_name}_${dataset}_${variant_name}_${job_id}.err"
-exec > "$log_file" 2> "$err_file"
-
+exec > >(tee "$log_file") 2> >(tee "$err_file" >&2)
 echo "==================================================================="
 echo " MPO – method=$method  model=$model_name  dataset=$dataset  run_sft=$run_sft"
 echo "==================================================================="
@@ -384,13 +380,13 @@ echo "Start: $(date +'%Y-%m-%d %H:%M:%S')"
 trainer_name="BasicTrainer"
 extra_train_flags=""
 fsdp_world_size=1
-n_examples_flag="n_examples=null"
-if [[ "$model_name" == "llama70b" ]]; then
-    trainer_name="BasicTrainer"
-    extra_train_flags="model.use_qlora=true"
-    fsdp_world_size=1
-    n_examples_flag="n_examples=20000"
-fi
+# n_examples_flag="n_examples=null"
+# if [[ "$model_name" == "llama70b" ]]; then
+#     trainer_name="BasicTrainer"
+#     extra_train_flags="model.use_qlora=true"
+#     fsdp_world_size=1
+#     n_examples_flag="n_examples=20000"
+# fi
 
 # Model-specific batch size defaults; 5th arg overrides.
 # llama7b: bs=4 (H200 OOMs at bs=8 on long-sequence datasets)
@@ -431,9 +427,9 @@ if [ "$run_sft" = "1" ]; then
         datasets=["$dataset"] \
         loss=sft \
         frontdoor.enabled=false \
-        $n_examples_flag \
         exp_name="${dataset}_${model_name}_sft" \
         gradient_accumulation_steps=$grad_accum \
+        n_examples=100 \
         batch_size=$batch_size \
         eval_batch_size=$eval_batch_size \
         trainer=$trainer_name \
@@ -448,7 +444,7 @@ fi
 # ---------------------------------------------------------------------------
 # Find the latest SFT checkpoint
 # ---------------------------------------------------------------------------
-BASE_DIR="${PROJECT_ROOT}/.cache/thinng"
+BASE_DIR=".cache/nhdang01"
 PREFIX="${dataset}_${model_name}_sft"
 
 latest_suffix=$(find "$BASE_DIR" -maxdepth 1 -type d -name "${PREFIX}*" 2>/dev/null | \
@@ -476,7 +472,6 @@ if [ "$is_betadpo" = "1" ]; then
         loss.mode_loss=beta_DPO \
         loss.mode_weight=0.2 \
         loss.a=0.6 \
-        $n_examples_flag \
         exp_name="${dataset}_${model_name}_betaDPO" \
         gradient_accumulation_steps=$grad_accum \
         batch_size=$batch_size \
@@ -512,10 +507,10 @@ python -u train.py \
     $fd_dpo_alpha \
     $fd_dpo_runtime_flags \
     n_epochs=1 \
-    $n_examples_flag \
     n_eval_examples=256 \
     do_first_eval=true \
     eval_every=20000 \
+    n_examples=100 \
     exp_name="${dataset}_${model_name}_${variant_name}" \
     gradient_accumulation_steps=$grad_accum \
     batch_size=$batch_size \

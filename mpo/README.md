@@ -195,16 +195,3 @@ mpo/
   LICENSE
 ```
 
----
-
-## Citation
-
-If you use this code, please cite:
-
-```bibtex
-@inproceedings{mpo2026icdm,
-  title     = {Preference Optimisation via Hidden-State Mediation},
-  booktitle = {IEEE International Conference on Data Mining (ICDM)},
-  year      = {2026},
-}
-```
