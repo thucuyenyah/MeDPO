@@ -8,4 +8,4 @@ export CUDA_DEVICE_ORDER=PCI_BUS_ID
 # Experiment 1: MPO-NoProj (variant 38)
 # ================================================================
 echo "=== MPO-NoProj model=3 (qwen3b) ==="
-CUDA_VISIBLE_DEVICES=7 bash run_all.sh 3 1 MPO-NoProj 0 
+CUDA_VISIBLE_DEVICES=7 bash run_all.sh 3 1 MPO-NoProj 0 4

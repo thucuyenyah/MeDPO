@@ -429,7 +429,6 @@ if [ "$run_sft" = "1" ]; then
         frontdoor.enabled=false \
         exp_name="${dataset}_${model_name}_sft" \
         gradient_accumulation_steps=$grad_accum \
-        n_examples=100 \
         batch_size=$batch_size \
         eval_batch_size=$eval_batch_size \
         trainer=$trainer_name \
@@ -510,7 +509,6 @@ python -u train.py \
     n_eval_examples=256 \
     do_first_eval=true \
     eval_every=20000 \
-    n_examples=100 \
     exp_name="${dataset}_${model_name}_${variant_name}" \
     gradient_accumulation_steps=$grad_accum \
     batch_size=$batch_size \
