@@ -1,0 +1,14 @@
+name_or_path: meta-llama/Llama-3.1-70B
+tokenizer_name_or_path: null
+archive: null
+block_name: LlamaDecoderLayer
+
+policy_dtype: bfloat16
+fsdp_policy_mp: bfloat16
+reference_dtype: bfloat16
+
+# CPU-offload optimizer states to fit 70B on 2×H100 (160GB VRAM).
+# Keeps only the current layer on GPU during forward/backward;
+# parameters and optimizer states reside in system RAM.
+fsdp_cpu_offload: true
+use_qlora: false

@@ -1,0 +1,118 @@
+# MPO-NoProj (Experiment 1: Artifact ablation) — variant 38
+# qwen05b
+sbatch --job-name=FD3800   run_all.sh 1 1 MPO-NoProj 0
+sbatch --job-name=FD3801   run_all.sh 1 2 MPO-NoProj 0
+sbatch --job-name=FD3802   run_all.sh 1 3 MPO-NoProj 0
+sbatch --job-name=FD3803   run_all.sh 1 4 MPO-NoProj 0
+sbatch --job-name=FD3804   run_all.sh 1 5 MPO-NoProj 0
+sbatch --job-name=FD3805   run_all.sh 1 6 MPO-NoProj 0
+# tinyllama11b
+sbatch --job-name=FD3806   run_all.sh 2 1 MPO-NoProj 0
+sbatch --job-name=FD3807   run_all.sh 2 2 MPO-NoProj 0
+sbatch --job-name=FD3808   run_all.sh 2 3 MPO-NoProj 0
+sbatch --job-name=FD3809   run_all.sh 2 4 MPO-NoProj 0
+sbatch --job-name=FD3810   run_all.sh 2 5 MPO-NoProj 0
+sbatch --job-name=FD3811   run_all.sh 2 6 MPO-NoProj 0
+# qwen3b
+sbatch --job-name=FD3812   run_all.sh 3 1 MPO-NoProj 0
+sbatch --job-name=FD3813   run_all.sh 3 2 MPO-NoProj 0
+sbatch --job-name=FD3814   run_all.sh 3 3 MPO-NoProj 0
+sbatch --job-name=FD3815   run_all.sh 3 4 MPO-NoProj 0
+sbatch --job-name=FD3816   run_all.sh 3 5 MPO-NoProj 0
+sbatch --job-name=FD3817   run_all.sh 3 6 MPO-NoProj 0
+# llama7b
+sbatch --job-name=FD3818   run_all.sh 4 1 MPO-NoProj 0
+sbatch --job-name=FD3819   run_all.sh 4 2 MPO-NoProj 0
+sbatch --job-name=FD3820   run_all.sh 4 3 MPO-NoProj 0
+sbatch --job-name=FD3821   run_all.sh 4 4 MPO-NoProj 0
+sbatch --job-name=FD3822   run_all.sh 4 5 MPO-NoProj 0
+sbatch --job-name=FD3823   run_all.sh 4 6 MPO-NoProj 0
+
+# MPO-LengthDiag (Experiment 2: Length-bias analysis) — variant 39
+# qwen05b
+sbatch --job-name=FD3900   run_all.sh 1 1 MPO-LengthDiag 0
+sbatch --job-name=FD3901   run_all.sh 1 2 MPO-LengthDiag 0
+sbatch --job-name=FD3902   run_all.sh 1 3 MPO-LengthDiag 0
+sbatch --job-name=FD3903   run_all.sh 1 4 MPO-LengthDiag 0
+sbatch --job-name=FD3904   run_all.sh 1 5 MPO-LengthDiag 0
+sbatch --job-name=FD3905   run_all.sh 1 6 MPO-LengthDiag 0
+# tinyllama11b
+sbatch --job-name=FD3906   run_all.sh 2 1 MPO-LengthDiag 0
+sbatch --job-name=FD3907   run_all.sh 2 2 MPO-LengthDiag 0
+sbatch --job-name=FD3908   run_all.sh 2 3 MPO-LengthDiag 0
+sbatch --job-name=FD3909   run_all.sh 2 4 MPO-LengthDiag 0
+sbatch --job-name=FD3910   run_all.sh 2 5 MPO-LengthDiag 0
+sbatch --job-name=FD3911   run_all.sh 2 6 MPO-LengthDiag 0
+# qwen3b
+sbatch --job-name=FD3912   run_all.sh 3 1 MPO-LengthDiag 0
+sbatch --job-name=FD3913   run_all.sh 3 2 MPO-LengthDiag 0
+sbatch --job-name=FD3914   run_all.sh 3 3 MPO-LengthDiag 0
+sbatch --job-name=FD3915   run_all.sh 3 4 MPO-LengthDiag 0
+sbatch --job-name=FD3916   run_all.sh 3 5 MPO-LengthDiag 0
+sbatch --job-name=FD3917   run_all.sh 3 6 MPO-LengthDiag 0
+# llama7b
+sbatch --job-name=FD3918   run_all.sh 4 1 MPO-LengthDiag 0
+sbatch --job-name=FD3919   run_all.sh 4 2 MPO-LengthDiag 0
+sbatch --job-name=FD3920   run_all.sh 4 3 MPO-LengthDiag 0
+sbatch --job-name=FD3921   run_all.sh 4 4 MPO-LengthDiag 0
+sbatch --job-name=FD3922   run_all.sh 4 5 MPO-LengthDiag 0
+sbatch --job-name=FD3923   run_all.sh 4 6 MPO-LengthDiag 0
+# MPO-LengthOnly (Experiment 3: Artifact-component ablation, length-only) — variant 40
+# qwen05b
+sbatch --job-name=FD4000   run_all.sh 1 1 MPO-LengthOnly 0
+sbatch --job-name=FD4001   run_all.sh 1 2 MPO-LengthOnly 0
+sbatch --job-name=FD4002   run_all.sh 1 3 MPO-LengthOnly 0
+sbatch --job-name=FD4003   run_all.sh 1 4 MPO-LengthOnly 0
+sbatch --job-name=FD4004   run_all.sh 1 5 MPO-LengthOnly 0
+sbatch --job-name=FD4005   run_all.sh 1 6 MPO-LengthOnly 0
+# tinyllama11b
+sbatch --job-name=FD4006   run_all.sh 2 1 MPO-LengthOnly 0
+sbatch --job-name=FD4007   run_all.sh 2 2 MPO-LengthOnly 0
+sbatch --job-name=FD4008   run_all.sh 2 3 MPO-LengthOnly 0
+sbatch --job-name=FD4009   run_all.sh 2 4 MPO-LengthOnly 0
+sbatch --job-name=FD4010   run_all.sh 2 5 MPO-LengthOnly 0
+sbatch --job-name=FD4011   run_all.sh 2 6 MPO-LengthOnly 0
+# qwen3b
+sbatch --job-name=FD4012   run_all.sh 3 1 MPO-LengthOnly 0
+sbatch --job-name=FD4013   run_all.sh 3 2 MPO-LengthOnly 0
+sbatch --job-name=FD4014   run_all.sh 3 3 MPO-LengthOnly 0
+sbatch --job-name=FD4015   run_all.sh 3 4 MPO-LengthOnly 0
+sbatch --job-name=FD4016   run_all.sh 3 5 MPO-LengthOnly 0
+sbatch --job-name=FD4017   run_all.sh 3 6 MPO-LengthOnly 0
+# llama7b
+sbatch --job-name=FD4018   run_all.sh 4 1 MPO-LengthOnly 0
+sbatch --job-name=FD4019   run_all.sh 4 2 MPO-LengthOnly 0
+sbatch --job-name=FD4020   run_all.sh 4 3 MPO-LengthOnly 0
+sbatch --job-name=FD4021   run_all.sh 4 4 MPO-LengthOnly 0
+sbatch --job-name=FD4022   run_all.sh 4 5 MPO-LengthOnly 0
+sbatch --job-name=FD4023   run_all.sh 4 6 MPO-LengthOnly 0
+
+# MPO-NormOnly (Experiment 4: Artifact-component ablation, norm-only) — variant 41
+# qwen05b
+sbatch --job-name=FD4100   run_all.sh 1 1 MPO-NormOnly 0
+sbatch --job-name=FD4101   run_all.sh 1 2 MPO-NormOnly 0
+sbatch --job-name=FD4102   run_all.sh 1 3 MPO-NormOnly 0
+sbatch --job-name=FD4103   run_all.sh 1 4 MPO-NormOnly 0
+sbatch --job-name=FD4104   run_all.sh 1 5 MPO-NormOnly 0
+sbatch --job-name=FD4105   run_all.sh 1 6 MPO-NormOnly 0
+# tinyllama11b
+sbatch --job-name=FD4106   run_all.sh 2 1 MPO-NormOnly 0
+sbatch --job-name=FD4107   run_all.sh 2 2 MPO-NormOnly 0
+sbatch --job-name=FD4108   run_all.sh 2 3 MPO-NormOnly 0
+sbatch --job-name=FD4109   run_all.sh 2 4 MPO-NormOnly 0
+sbatch --job-name=FD4110   run_all.sh 2 5 MPO-NormOnly 0
+sbatch --job-name=FD4111   run_all.sh 2 6 MPO-NormOnly 0
+# qwen3b
+sbatch --job-name=FD4112   run_all.sh 3 1 MPO-NormOnly 0
+sbatch --job-name=FD4113   run_all.sh 3 2 MPO-NormOnly 0
+sbatch --job-name=FD4114   run_all.sh 3 3 MPO-NormOnly 0
+sbatch --job-name=FD4115   run_all.sh 3 4 MPO-NormOnly 0
+sbatch --job-name=FD4116   run_all.sh 3 5 MPO-NormOnly 0
+sbatch --job-name=FD4117   run_all.sh 3 6 MPO-NormOnly 0
+# llama7b
+sbatch --job-name=FD4118   run_all.sh 4 1 MPO-NormOnly 0
+sbatch --job-name=FD4119   run_all.sh 4 2 MPO-NormOnly 0
+sbatch --job-name=FD4120   run_all.sh 4 3 MPO-NormOnly 0
+sbatch --job-name=FD4121   run_all.sh 4 4 MPO-NormOnly 0
+sbatch --job-name=FD4122   run_all.sh 4 5 MPO-NormOnly 0
+sbatch --job-name=FD4123   run_all.sh 4 6 MPO-NormOnly 0

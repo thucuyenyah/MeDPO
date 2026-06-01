@@ -1,0 +1,7 @@
+model,dataset,method,job_id,status,accuracy_percent,elapsed,reason
+qwen3b,hh,SimPO,93905,SUCCESS,58.98,8086s (2h 14m 46s),FINAL eval + Done line present
+qwen3b,shp,SimPO,93905,SUCCESS,50.39,9508s (2h 38m 28s),FINAL eval + Done line present
+qwen3b,pku,SimPO,93905,SUCCESS,50.78,2550s (0h 42m 30s),FINAL eval + Done line present
+qwen3b,ultrabin,SimPO,93905,SUCCESS,55.47,3480s (0h 58m 0s),FINAL eval + Done line present
+qwen3b,ultrallama,SimPO,93905,FAILED,,56m 23s (partial),FINAL eval present (50.39) but no Done line; archive step failed at run_all.sh:412 — SFT checkpoint ultrallama_qwen3b_sft_*/LATEST/policy.pt missing (exit 127)
+qwen3b,ultragemma,SimPO,93905,SUCCESS,55.08,3348s (0h 55m 48s),FINAL eval + Done line present

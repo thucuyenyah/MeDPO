@@ -1,0 +1,26 @@
+# do DPO preference-based training
+name: dpo
+
+# the temperature parameter for DPO; lower values mean we care less about
+#   the reference model
+beta: ???
+
+# the noise parameter for conservative DPO; should be in range (0, 0.5); interpreted as
+#   the fraction of preference pairs that are flipped
+#   eps=0 is the original DPO loss in the DPO paper
+label_smoothing: 0
+
+# if true, use a uniform (maximum entropy) reference model
+reference_free: false
+objective: dpo
+gamma: 0.0
+
+# External DPO-family baseline knobs. These are inactive unless loss.objective
+# is set by run_all.sh to simpo, tdpo, or tisdpo.
+tdpo_alpha: 0.5
+tdpo2: true
+tisdpo_alpha: 0.5
+tisdpo_token_level: true
+tisdpo_weight_mode: margin_proxy
+tisdpo_min_weight: 0.25
+tisdpo_max_weight: 2.0
