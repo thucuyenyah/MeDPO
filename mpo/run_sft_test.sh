@@ -7,5 +7,5 @@ set -e
 # GPU 5: còn ~62GB
 
 echo "=== SFT model=4 (llama7b) ==="
-CUDA_VISIBLE_DEVICES=7 bash run_all.sh 4 1 DPO 1 
+CUDA_VISIBLE_DEVICES=7 bash run_all.sh 4 1 DPO 1 2
 
